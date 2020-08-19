@@ -22,10 +22,10 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		//prepare test data
-		ex1 = new Exchange(1, "Exchange 1", 10);
-		ex2 = new Exchange(2, "Exchange 2", 20);
-		re1 = new Refund(3, "Refund 1", 30);
-		re2 = new Refund(4, "Refund 2", 40);
+		ex1 = new Exchange(1, "Exchange 1", 10, 0);
+		ex2 = new Exchange(2, "Exchange 2", 20, 0);
+		re1 = new Refund(3, "Refund 1", 30, 0);
+		re2 = new Refund(4, "Refund 2", 40, 0);
 		
 		exchangeList = new ArrayList<Exchange>();
 		refundList = new ArrayList<Refund>();

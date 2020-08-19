@@ -117,8 +117,9 @@ public class C206_CaseStudy {
 		int id = Helper.readInt("Enter ID > ");
 		String name = Helper.readString("Enter Name > ");
 		double price = Helper.readDouble("Enter Price > ");
+		int topup = 0;
 
-		Exchange ex = new Exchange(id, name, price);
+		Exchange ex = new Exchange(id, name, price, topup);
 		return ex;
 
 	}
@@ -133,8 +134,9 @@ public class C206_CaseStudy {
 		int id = Helper.readInt("Enter ID > ");
 		String name = Helper.readString("Enter Name > ");
 		double price = Helper.readDouble("Enter Price > ");
+		int returnPoints = 0;
 
-		Refund re = new Refund(id, name, price);
+		Refund re = new Refund(id, name, price, 0);
 		return re;
 
 	}
