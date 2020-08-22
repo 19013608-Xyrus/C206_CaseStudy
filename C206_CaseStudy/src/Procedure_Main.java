@@ -55,7 +55,7 @@ public class Procedure_Main {
 		
 		for(int i = 0; i < procedureList.size() ; i++) {
 			
-			output += String.format("%d.%-10s (Added on > %-30s \n", i+1 , 
+			output += String.format("%d.%-10s (Added on >%-10s) %-30s \n", i+1 , 
 					procedureList.get(i).getType() , 
 					procedureList.get(i).getDateTime(),
 					procedureList.get(i).getDescription());
