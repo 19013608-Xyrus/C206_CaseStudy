@@ -3,7 +3,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 
-//!!ALL TOGGLED COMMENTS IS FOR SPRINT #2 , DUE 25 AUGUST 2020 2359
 
 public class procedure_types {
 	
