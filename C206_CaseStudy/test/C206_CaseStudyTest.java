@@ -14,10 +14,8 @@ public class C206_CaseStudyTest {
 	private procedure_types type_Refund;
 	private procedure_types type_Exchange;
 	
-	
 	private ArrayList<procedure_types> procedureList;
-
-
+	
 	private Exchange ex1;
 	private Exchange ex2;
 	private Refund re1;
@@ -37,7 +35,6 @@ public class C206_CaseStudyTest {
 		exchangeList = new ArrayList<Exchange>();
 		refundList = new ArrayList<Refund>();
 	}
-	
 	@Before
 	public void setUp() throws Exception {
 
@@ -79,8 +76,9 @@ public class C206_CaseStudyTest {
 		ex2 = null;
 		re1 = null;
 		re2 = null;
+		
+		procedureList = null;
 	}
-
 	
 	@Test
 	public void addExchangeTest() {
