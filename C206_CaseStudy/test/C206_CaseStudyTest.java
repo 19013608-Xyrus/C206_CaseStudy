@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class C206_CaseStudyTest {
-<<<<<<< HEAD
+
 	
 	private procedure_types type_Refund;
 	private procedure_types type_Exchange;
