@@ -24,6 +24,7 @@ public class products {
 	
 	public String setName() {
 		this.name=name;
+		return name;
 	}
 	
 	public String toString() {
