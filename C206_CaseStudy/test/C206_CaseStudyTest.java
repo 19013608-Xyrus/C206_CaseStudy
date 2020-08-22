@@ -22,10 +22,10 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		//prepare test data
-		ex1 = new Exchange(1, "Exchange 1", 10, 0);
-		ex2 = new Exchange(2, "Exchange 2", 20, 0);
-		re1 = new Refund(3, "Refund 1", 30, 0);
-		re2 = new Refund(4, "Refund 2", 40, 0);
+		ex1 = new Exchange(1, "Staff 1", "Customer 1", 10, 0);
+		ex2 = new Exchange(2, "Staff 2","Customer 2", 20, 0);
+		re1 = new Refund(3, "Staff 3", "Customer 3", 30, 0);
+		re2 = new Refund(4, "Staff 4", "Customer 4", 40, 0);
 		
 		exchangeList = new ArrayList<Exchange>();
 		refundList = new ArrayList<Refund>();
@@ -94,9 +94,10 @@ public class C206_CaseStudyTest {
 				
 		//test if the expected output string same as the list of Exchange retrieved from the SourceCentre	
 		allExchange = C206_CaseStudy.retrieveAllExchange(exchangeList);
-		testOutput = String.format("%-10d %-30s %-10.2f\n", 1, "Exchange 1", 10.00);
-		testOutput += String.format("%-10d %-30s %-10.2f\n", 2, "Exchange 2", 20.00);
-
+		testOutput = String.format("%-10d %-20s %-10s %-10.2f\n", 1, "Staff 1", "Customer 1", 10.00);
+		testOutput += String.format("%-10d %-20s %-10s %-10.2f\n", 2, "Staff 2", "Customer 2", 20.00);
+		System.out.println(testOutput);
+		System.out.println(allExchange);
 		assertEquals("Test that ViewAllExchangelist", testOutput, allExchange);
 	}
 	
@@ -118,9 +119,10 @@ public class C206_CaseStudyTest {
 						
 		//test if the expected output string same as the list of Refund retrieved from the SourceCentre	
 		allRefund = C206_CaseStudy.retrieveAllRefund(refundList);
-		testOutput = String.format("%-10d %-30s %-10.2f\n", 3, "Refund 1", 30.00);
-		testOutput += String.format("%-10d %-30s %-10.2f\n", 4, "Refund 2", 40.00);
-
+		testOutput = String.format("%-10d %-20s %-10s %-10.2f\n", 3, "Staff 3", "Customer 3", 30.00);
+		testOutput += String.format("%-10d %-20s %-10s %-10.2f\n", 4, "Staff 4", "Customer 4", 40.00);
+		System.out.println(testOutput);
+		System.out.println(allRefund);
 		assertEquals("Test that ViewAllRefundlist", testOutput, allRefund);
 	}
 	
@@ -141,5 +143,22 @@ public class C206_CaseStudyTest {
 		isArchived = C206_CaseStudy.doArchiveExchange(exchangeList, 3);
 		assertFalse("Test if non-existent Exchange 3 is archived - false?", isArchived);
 	}
-
+	
+	@Test
+	public void archivingRefundTest() {
+		//==============================ARCHIVING EXCHANGE=======================================
+		//boundary
+		assertNotNull("Test if there is valid Refund arraylist to add to", refundList);
+		C206_CaseStudy.addRefund(refundList, re1);
+		//error
+		Boolean isArchived = C206_CaseStudy.doArchiveRefund(refundList, 3);
+		assertTrue("Test if Refund 3 is archived - true", isArchived);		
+		//normal
+		C206_CaseStudy.addRefund(refundList, re2);
+		isArchived = C206_CaseStudy.doArchiveRefund(refundList, 4);
+		assertTrue("Test if Refund 4 is archived - true", isArchived);
+		//error
+		isArchived = C206_CaseStudy.doArchiveRefund(refundList, 5);
+		assertFalse("Test if non-existent Refund 5 is archived - false?", isArchived);
+	}
 }

@@ -9,7 +9,7 @@ public class C206_CaseStudy {
 
 		int option = 0;
 
-		while (option != 4) {
+		while (option != 5) {
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
 
@@ -52,22 +52,55 @@ public class C206_CaseStudy {
 				} else if (transactionType == 2) {
 					// Add a refund
 					C206_CaseStudy.archiveRefund(refundList);
-
-				} else if (option == 4) {
-					System.out.println("Bye!");
-				} else {
-					System.out.println("Invalid option!");
+					
 				}
+			} else if (option == 4) {
+				//Update a transaction
+				C206_CaseStudy.setHeader("UPDATE");
+				C206_CaseStudy.setHeader("ITEM TYPES");
+				System.out.println("1. Exchange");
+				System.out.println("2. Refund");
+				int transactionType = Helper.readInt("Enter a transaction type > ");
+				if (transactionType == 1) {
+					// Update an exchange
+					int id = Helper.readInt("Enter ID of exchange to update > ");
+					boolean exist = checkExchangeID(exchangeList, id);
+					while (exist == false) {
+						System.out.println("ID does not exist, please try again");
+						id = Helper.readInt("Enter ID again > ");
+						exist = checkExchangeID(exchangeList, id);
+					}
+					
+					updateExchange(exchangeList, id);
+
+				} else if (transactionType == 2) {
+					// Update a refund
+					int id = Helper.readInt("Enter ID of exchange to update > ");
+					boolean exist = checkRefundID(refundList, id);
+					while (exist == false) {
+						System.out.println("ID does not exist, please try again");
+						id = Helper.readInt("Enter ID again > ");
+						exist = checkRefundID(refundList, id);
+					}
+					
+					updateRefund(refundList, id);
+
+			} else if (option == 5) {
+				System.out.println("Bye!");
+			} else {
+				System.out.println("Invalid option!");
 			}
 		}
 	}
+}
 
 	public static void menu() {
 		C206_CaseStudy.setHeader("DISO APP");
 		System.out.println("1. VIEW ALL TRANSACTIONS");
 		System.out.println("2. ADD A TRANSACTION");
 		System.out.println("3. ARCHIVE A TRANSACTION");
-		System.out.println("4. QUIT");
+		System.out.println("4. UPDATE A TRANSACTION");
+		System.out.println("5. QUIT");
 		Helper.line(80, "-");
 	}
 
@@ -82,15 +115,16 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < exchangeList.size(); i++) {
-			output += String.format("%-10d %-30s %-10.2f\n", exchangeList.get(i).getId(),
-					exchangeList.get(i).getName(), exchangeList.get(i).getPrice());
+			output += String.format("%-10d %-20s %-10s %-10.2f\n", exchangeList.get(i).getId(),
+					exchangeList.get(i).getCustName(), exchangeList.get(i).getStaffName()
+					, exchangeList.get(i).getPrice());
 		}
 		return output;
 	}
 
 	public static void viewAllExchange(ArrayList<Exchange> exchangeList) {
 		C206_CaseStudy.setHeader("EXCHANGE LIST");
-		String output = String.format("%-10s %-30s %-10s\n", "ID", "NAME", "PRICE");
+		String output = String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE");
 		output += retrieveAllExchange(exchangeList);
 		System.out.println(output);
 	}
@@ -99,15 +133,16 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < refundList.size(); i++) {
-			output += String.format("%-10d %-30s %-10.2f\n", refundList.get(i).getId(),
-					refundList.get(i).getName(), refundList.get(i).getPrice());
+			output += String.format("%-10d %-20s %-10s %-10.2f\n", refundList.get(i).getId(),
+					refundList.get(i).getCustName(), refundList.get(i).getStaffName()
+					, refundList.get(i).getPrice());
 		}
 		return output;
 	}
 
 	public static void viewAllRefund(ArrayList<Refund> refundList) {
 		C206_CaseStudy.setHeader("REFUND LIST");
-		String output = String.format("%-10s %-30s %-10s\n", "ID", "NAME", "PRICE");
+		String output = String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE");
 		output += retrieveAllRefund(refundList);
 		System.out.println(output);
 	}
@@ -115,11 +150,12 @@ public class C206_CaseStudy {
 	// ================================= Option 2 Add=================================
 	public static Exchange inputExchange() {
 		int id = Helper.readInt("Enter ID > ");
-		String name = Helper.readString("Enter Name > ");
+		String name = Helper.readString("Enter Name of customer > ");
+		String nameStaff = Helper.readString("Enter Name of staff >");
 		double price = Helper.readDouble("Enter Price > ");
 		int topup = 0;
 
-		Exchange ex = new Exchange(id, name, price, topup);
+		Exchange ex = new Exchange(id, name, nameStaff, price, topup);
 		return ex;
 
 	}
@@ -132,11 +168,12 @@ public class C206_CaseStudy {
 
 	public static Refund inputRefund() {
 		int id = Helper.readInt("Enter ID > ");
-		String name = Helper.readString("Enter Name > ");
+		String name = Helper.readString("Enter Name of customer > ");
+		String nameStaff = Helper.readString("Enter Name of staff > ");
 		double price = Helper.readDouble("Enter Price > ");
 		int returnPoints = 0;
 
-		Refund re = new Refund(id, name, price, 0);
+		Refund re = new Refund(id, name, nameStaff, price, 0);
 		return re;
 
 	}
@@ -196,5 +233,62 @@ public class C206_CaseStudy {
 		} else {
 			System.out.println("Refund " + id + " archived");
 		}
+	}
+	
+	// ================================= Option 4 Update=================================
+	public static boolean checkExchangeID(ArrayList<Exchange> exchangeList, int id) {
+		boolean exist = false;
+		for (int i = 0; i < exchangeList.size(); i++) {
+			if (exchangeList.get(i).getId() == id)
+				exist = true;
+		}
+		return exist;
+	}
+	
+	public static void updateExchange(ArrayList<Exchange> exchangeList, int id) {
+		String name = Helper.readString("Enter updated name > ");
+		String nameStaff = Helper.readString("Enter updated Staff name > ");
+		double price = Helper.readDouble("Enter updated price > ");
+		int pos = 0;
+		for (int i=0;i< exchangeList.size();i++) {
+			if (exchangeList.get(i).getId() == id ) {
+				pos = i;
+				break;
+			}
+		}
+		
+		exchangeList.get(pos).setCustName(name);
+		exchangeList.get(pos).setStaffName(nameStaff);
+		exchangeList.get(pos).setPrice(price);
+		
+		System.out.println("Exchange updated");
+	}
+	
+	public static boolean checkRefundID(ArrayList<Refund> refundList, int id) {
+		boolean exist = false;
+		for (int i = 0; i < refundList.size(); i++) {
+			if (refundList.get(i).getId() == id)
+				exist = true;
+		}
+		return exist;
+	}
+
+	public static void updateRefund(ArrayList<Refund> refundList, int id) {
+		String name = Helper.readString("Enter updated name > ");
+		String nameStaff = Helper.readString("Enter updated Staff name > ");
+		double price = Helper.readDouble("Enter updated price > ");
+		int pos = 0;
+		for (int i=0;i< refundList.size();i++) {
+			if (refundList.get(i).getId() == id ) {
+				pos = i;
+				break;
+			}
+		}
+		
+		refundList.get(pos).setCustName(name);
+		refundList.get(pos).setStaffName(nameStaff);
+		refundList.get(pos).setPrice(price);
+		
+		System.out.println("Refund updated");
 	}
 }

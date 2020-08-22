@@ -4,8 +4,8 @@ public class Exchange extends item{
 	private int topup;
 	
 	
-	public Exchange(int id, String name, double price , int topup) {
-		super(id, name, price);
+	public Exchange(int id, String name, String nameStaff, double price , int topup) {
+		super(id, name, nameStaff, price);
 		this.topup = topup;
 
 	}
