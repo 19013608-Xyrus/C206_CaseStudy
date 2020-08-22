@@ -16,15 +16,7 @@ public class C206_CaseStudyTest {
 	private procedure_types type_Refund;
 	private procedure_types type_Exchange;
 	
-	
-	private ArrayList<procedure_types> procedureList;
-	
-	public C206_CaseStudyTest() {
-		super();
-	}
 
-
-=======
 	private Exchange ex1;
 	private Exchange ex2;
 	private Refund re1;
@@ -32,15 +24,18 @@ public class C206_CaseStudyTest {
 	
 	private ArrayList<Exchange> exchangeList;
 	private ArrayList<Refund> refundList;
+
+	
+	
+	private ArrayList<procedure_types> procedureList;
 	
 	public C206_CaseStudyTest() {
 		super();
 	}
-	
->>>>>>> branch 'master' of https://github.com/19013608-Xyrus/C206_CaseStudy.git
+
 	@Before
 	public void setUp() throws Exception {
-<<<<<<< HEAD
+
 		
 		type_Refund = new procedure_types("Refund" , "Repay customer through points system");
 		type_Exchange = new procedure_types("Exchange", "Exchange goods only if goods were spoilt");
@@ -65,7 +60,6 @@ public class C206_CaseStudyTest {
 	public void deleteProcedureTest() {
 		//procedure should be removed after deleted - Error
 		assertEquals("Remove the procedure" , type_Refund , procedureList.remove(0));
-=======
 		//prepare test data
 		ex1 = new Exchange(1, "Staff 1", "Customer 1", 10, 0);
 		ex2 = new Exchange(2, "Staff 2","Customer 2", 20, 0);
@@ -74,24 +68,21 @@ public class C206_CaseStudyTest {
 		
 		exchangeList = new ArrayList<Exchange>();
 		refundList = new ArrayList<Refund>();
->>>>>>> branch 'master' of https://github.com/19013608-Xyrus/C206_CaseStudy.git
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
-<<<<<<< HEAD
+
 		type_Refund = null;
 		type_Exchange = null;
-=======
+
 		ex1 = null;
 		ex2 = null;
 		re1 = null;
 		re2 = null;
-	}
->>>>>>> branch 'master' of https://github.com/19013608-Xyrus/C206_CaseStudy.git
-
-		procedureList = null;
 		
+		procedureList = null;
 	}
 	
 	@Test
