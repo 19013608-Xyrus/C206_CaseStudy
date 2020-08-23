@@ -18,6 +18,7 @@ public class Trial_MainClass {
 		procedureList.add(new procedure_types("Exchange" , "Exchange goods only if goods were spoilt" , new Date()));
 		
 		//Imported from Product - Manmeet
+		ArrayList<products> productList = new ArrayList<products>();
 		
 		//Imported from Customer - Marcus
 		
@@ -149,6 +150,29 @@ public class Trial_MainClass {
 			}
 			else if (option == 3) {
 				// Product
+				 
+				int productOpt = 0;
+				
+				
+				while (productOpt != 5);
+				
+				Trial_MainClass.ProductMenu();
+				productOpt = Helper.readInt("Enter an option > ");
+				
+				if (productOpt == 1) {
+					Trial_MainClass.viewAllProducts(productList);
+					
+				} else if (productOpt==2 ) {
+					products pr = inputProduct();
+					Trial_MainClass.addProducts(productList, pr);
+				} else if (productOpt == 3) {
+					products pr = deleteProduct(productList);
+					
+				} else if (productOpt == 5) {
+					System.out.println("Goodbye!");
+				} else {
+					System.out.println("Option is not valid");
+			}
 			}
 			else if (option == 4) {
 				// Customer
@@ -510,4 +534,50 @@ public class Trial_MainClass {
 				}
 			}
 		}
+		
+		// products
+		
+		
+		public static String retrieveAllProducts(ArrayList<products> productList ) {
+			String output = "";
+			for (int i = 0; i < productList.size(); i++) {
+				
+				output += String.format(" %d.%-20s(Add %-20s )%-20s \n", i+1, 
+						productList.get(i).getName(), productList.get(i).getDescription(), productList.get(i).getCategory());
+						}
+			return output;
+		}
+			
+		public static void viewAllProducts(ArrayList<products> productList) {
+			products_main.setHeader("PRODUCTS LIST");
+			String output = String.format("%20s \n", "PRODUCTS");
+			      output += retrieveAllProducts(productList);
+			System.out.println(output);
+		}
+		
+		public static products inputProduct() {
+			String name = Helper.readString("Enter product name > ");
+			String description = Helper.readString("Enter a description of the product > ");
+			String category = Helper.readString("Enter the category of the product > " );
+			return null;
+		}
+		
+		public static void addProducts(ArrayList<products> productList, products pr) {
+			productList.add(pr);
+			System.out.println("The product has been added.");
+			
+		}
+		
+		public static products deleteProduct(ArrayList<products> productList) {
+			String name = Helper.readString("Enter the product to be deleted > ");
+			for(int i = 0; i < productList.size(); i++) {
+				if (productList.get(i).getName().equalsIgnoreCase(name)) {
+					productList.remove(i);
+				}
+			}
+			return null;
+		}
+
 }
+
+
