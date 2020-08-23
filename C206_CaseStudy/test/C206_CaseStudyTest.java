@@ -16,6 +16,8 @@ public class C206_CaseStudyTest {
 	
 	private ArrayList<procedure_types> procedureList;
 	
+	private ArrayList<products> productList;
+	
 	private Exchange ex1;
 	private Exchange ex2;
 	private Refund re1;
@@ -202,4 +204,32 @@ public class C206_CaseStudyTest {
 		isArchived = C206_CaseStudy.doArchiveRefund(refundList, 5);
 		assertFalse("Test if non-existent Refund 5 is archived - false?", isArchived);
 	}
+	
+	@Test
+	public void addProductTest () { 
+		//Check the product list  - boundary
+		assertNotNull("Test if there is valid product arraylist to add to", productList);
+		
+		//Add product and check the product is added  - normal
+		products_main.addProducts(productList, null);
+		assertSame("Check that the product is added", productList.get(0));
+		}
+	
+	@Test
+	public void viewAllProductTest () {
+		// to check if there is a valid list to view the products from - boundary
+		assertNotNull("Test if there is valid Product arraylist to retrieve product", productList);
+		
+		
+	}
+	
+	@Test
+	public void deleteProductTest () {
+		// ensure product not in list after deletion - error
+		assertEquals("Delete the product" , productList.remove(0));
+	}
+	
+	
 }
+
+
