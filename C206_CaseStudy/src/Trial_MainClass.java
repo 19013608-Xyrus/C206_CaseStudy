@@ -596,7 +596,9 @@ public class Trial_MainClass {
 			}
 		}
 		
-		// products
+		// !! END OF PROCEDURE METHODS !!
+		
+		// !! PRODUCT METHODS !!
 		
 		
 		public static String retrieveAllProducts(ArrayList<products> productList ) {
@@ -638,9 +640,7 @@ public class Trial_MainClass {
 			}
 			return null;
 		}
-
-			// !! END OF PROCEDURE METHODS !!
-			
+			// !! END OF PRODUCTS METHOD!!
 			
 			
 			// !! CUSTOMER METHODS !!
