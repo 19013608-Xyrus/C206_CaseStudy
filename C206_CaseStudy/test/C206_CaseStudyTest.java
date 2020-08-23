@@ -24,6 +24,11 @@ public class C206_CaseStudyTest {
 	private ArrayList<Exchange> exchangeList;
 	private ArrayList<Refund> refundList;
 
+	private Customer customer1;
+	private Customer customer2;
+	
+	private ArrayList<Customer> customerList;
+	private ArrayList<Returns> returnsList;
 	
 	public C206_CaseStudyTest() {
 		super();
@@ -202,4 +207,61 @@ public class C206_CaseStudyTest {
 		isArchived = C206_CaseStudy.doArchiveRefund(refundList, 5);
 		assertFalse("Test if non-existent Refund 5 is archived - false?", isArchived);
 	}
+}
+
+
+	// Marcus
+	@Test
+	public void addCustomer() {
+		// Check customer list (Normal)
+		assertNotNull("Check if there is valid Customer arraylist to add to", customerList);
+		
+		// Add customer and check the list and ensure it is 1 (Boundary)
+		Customer_Main.addCustomer(customerList, customer1);
+		assertSame("Check that Customer is added", customer1, customerList.get(0));
+		
+		// The customer added is as same as the first customer of the list (Error)
+		assertSame("Test that Customer is added same as 1st customer in the list", customer1, customerList.get(0));
+	}
+	
+	@Test
+	public void viewcustomerList() {
+		// Test if customer list can be viewed (Normal)
+		assertNotNull("Test if there is valid Customer arraylist to view", customerList);
+		
+		// If customer list is empty it should not display anything (Boundary)
+		assertNull("Check if customer list is empty", customerList);
+		
+	    // Customer list is full and cannot add anymore customers (Error)
+		Customer_Main.addCustomer(customerList, customer1);
+	    assertEquals("Test that Customer arraylist size is 2", 2, customerList.size());
+	
+	}
+	
+	@Test
+	public void deleteCustomer() {
+		// Delete a customer in the list (Normal)
+		Customer_Main.deleteCustomer(customerList, customer1);
+		
+		// Same customer cannot be deleted more than once (Boundary)
+		assertSame("Test that the same customer is not deleted more than once", customer1, customerList.get(0));
+		
+		// If customer list is empty it should not delete anything (Error)
+		assertNull("Check if customer list is empty", customerList);
+	
+	}
+		
+	@Test
+	public void updateCustomerReturns() {
+		// View returns list (Normal)
+		assertNotNull("Test if there is valid returns arraylist to view", returnsList);
+		
+		// If the customer does not have any returns it should not display anything (Boundary)
+		assertNull("Check that returns list is empty", returnsList);
+		
+		// If the returns list is empty it should not update anything (Error)
+		assertNull("Check if returns list is empty", returnsList);
+		
+	}
+		
 }
