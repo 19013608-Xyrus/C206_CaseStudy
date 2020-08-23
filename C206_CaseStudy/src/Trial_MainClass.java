@@ -254,27 +254,47 @@ public class Trial_MainClass {
 		}
 
 		public static void addExchange(ArrayList<Exchange> exchangeList, Exchange ex) {
-
+			
+			String output = "";
 			exchangeList.add(ex);
 			System.out.println("Exchange added");
+			for (int i = 0; i < exchangeList.size(); i++) {
+				if (ex.getCustName().equalsIgnoreCase(exchangeList.get(i).getCustName())) {
+					System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+					output += String.format("%-10d %-20s %-10s %-10.2f\n", exchangeList.get(i).getId(),
+							exchangeList.get(i).getCustName(), exchangeList.get(i).getStaffName()
+							, exchangeList.get(i).getPrice());
+					System.out.println(output);
+				}
+			}
 		}
 
 		public static Refund inputRefund() {
+			int returnPoints = 0;
 			int id = Helper.readInt("Enter ID > ");
 			String name = Helper.readString("Enter Name of customer > ");
 			String nameStaff = Helper.readString("Enter Name of staff > ");
 			double price = Helper.readDouble("Enter Price > ");
-			int returnPoints = 0;
 
-			Refund re = new Refund(id, name, nameStaff, price, 0);
+			Refund re = new Refund(id, name, nameStaff, price, returnPoints);
 			return re;
 
 		}
 
 		public static void addRefund(ArrayList<Refund> refundList, Refund re) {
-
+			
+			String output = "";
 			refundList.add(re);
 			System.out.println("Refund added");
+			for (int i = 0; i < refundList.size(); i++) {
+				if (re.getCustName().equalsIgnoreCase(refundList.get(i).getCustName())) {
+					System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+					output += String.format("%-10d %-20s %-10s %-10.2f\n", refundList.get(i).getId(),
+							refundList.get(i).getCustName(), refundList.get(i).getStaffName()
+							, refundList.get(i).getPrice());
+					System.out.println(output);
+				}
+			}
 		}
 
 		// ================================= Option 3 Archive=================================
