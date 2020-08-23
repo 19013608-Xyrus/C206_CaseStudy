@@ -22,7 +22,7 @@ public class Trial_MainClass {
 		//Menu for the program
 		int option = 0;
 		
-		while (option !=5) {
+		while (option !=6) {
 			Trial_MainClass.menu();
 			
 			option = Helper.readInt("Enter option number> ");
@@ -33,6 +33,8 @@ public class Trial_MainClass {
 				int transOpt = 0;
 		
 				while (transOpt != 5) {
+					
+					//Transaction Menu + Method names
 					Trial_MainClass.TransactionMenu();
 					transOpt = Helper.readInt("Enter an option > ");
 
@@ -122,6 +124,8 @@ public class Trial_MainClass {
 				int ProcedureOpt = 0;
 				
 				while (ProcedureOpt != 4) {
+					
+					//Procedure Menu + Method names 
 					Trial_MainClass.ProcedureMenu();
 					ProcedureOpt = Helper.readInt("Enter an option > ");
 					

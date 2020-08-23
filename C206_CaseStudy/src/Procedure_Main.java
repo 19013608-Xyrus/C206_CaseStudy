@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Calendar;
+
 
 public class Procedure_Main {
 
@@ -15,7 +18,7 @@ public class Procedure_Main {
 		
 		int option = 0;
 		
-		while (option != 5) {
+		while (option != 6) {
 			Procedure_Main.menu();
 			option = Helper.readInt("Enter an option > ");
 			
@@ -27,6 +30,8 @@ public class Procedure_Main {
 			} else if (option == 3) {
 				Procedure_Main.deleteProcedure(procedureList);
 			} else if (option == 4) {
+				//Update Date Time
+			} else if (option == 5) {
 				System.out.println("Bye!");
 			} else {
 				System.out.println("Invalid option!");
@@ -92,6 +97,19 @@ public class Procedure_Main {
 				procedureList.remove(i);
 				System.out.println("Procedure deleted!");
 			}
+		}
+	}
+	
+	public static void updateDate(ArrayList<procedure_types> procedureList) {
+		String type = Helper.readString("Enter Procedure Type> ");
+		String newDate = Helper.readString("Enter new Date and Time (dd/MM/yy HH:mm:ss format)> " );
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		try {
+			Date date = sdf.parse(newDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
