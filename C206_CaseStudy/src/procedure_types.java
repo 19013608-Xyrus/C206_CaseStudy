@@ -31,7 +31,7 @@ public class procedure_types {
 	}
 
 
-	public void setDateTime(Date dateTime) {
+	public void setDateTime(Date DateTime) {
 		this.DateTime = DateTime;
 	}
 

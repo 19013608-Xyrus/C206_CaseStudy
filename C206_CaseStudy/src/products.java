@@ -11,11 +11,15 @@
  *
  */
 public class products {
-	private String name;
 	
-	public products(String name) {
+	private String name;
+	private String description;
+	private String category;
+	
+	public products(String name, String description) {
 		super();
 		this.name=name;
+		this.description=description;
 	}
 	
 	public String getName() {
@@ -27,9 +31,24 @@ public class products {
 		return name;
 	}
 	
-	public String toString() {
-		String output = String.format("%s", name);
-		return output;
+	public String getDescription() {
+		return description;
+	}
+	
+	public String setDescription() {
+		return description;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	
+	public String setCategory() {
+		return category;
 	}
 
+	
+	
 }
+
+

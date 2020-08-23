@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,6 +18,7 @@ public class Trial_MainClass {
 		procedureList.add(new procedure_types("Exchange" , "Exchange goods only if goods were spoilt" , new Date()));
 		
 		//Imported from Product - Manmeet
+		ArrayList<products> productList = new ArrayList<products>();
 		
 		//Imported from Customer - Marcus
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
@@ -32,7 +35,7 @@ public class Trial_MainClass {
 		//Menu for the program
 		int option = 0;
 		
-		while (option !=5) {
+		while (option !=6) {
 			Trial_MainClass.menu();
 			
 			option = Helper.readInt("Enter option number> ");
@@ -43,6 +46,8 @@ public class Trial_MainClass {
 				int transOpt = 0;
 		
 				while (transOpt != 5) {
+					
+					//Transaction Menu + Method names
 					Trial_MainClass.TransactionMenu();
 					transOpt = Helper.readInt("Enter an option > ");
 
@@ -131,7 +136,9 @@ public class Trial_MainClass {
 				
 				int ProcedureOpt = 0;
 				
-				while (ProcedureOpt != 4) {
+				while (ProcedureOpt != 5) {
+					
+					//Procedure Menu + Method names 
 					Trial_MainClass.ProcedureMenu();
 					ProcedureOpt = Helper.readInt("Enter an option > ");
 					
@@ -143,6 +150,8 @@ public class Trial_MainClass {
 					} else if (ProcedureOpt == 3) {
 						Trial_MainClass.deleteProcedure(procedureList);
 					} else if (ProcedureOpt == 4) {
+						Trial_MainClass.updateDate(procedureList);
+					} else if (ProcedureOpt == 5) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid option!");
@@ -151,6 +160,29 @@ public class Trial_MainClass {
 			}
 			else if (option == 3) {
 				// Product
+				 
+				int productOpt = 0;
+				
+				
+				while (productOpt != 5);
+				
+				Trial_MainClass.ProductMenu();
+				productOpt = Helper.readInt("Enter an option > ");
+				
+				if (productOpt == 1) {
+					Trial_MainClass.viewAllProducts(productList);
+					
+				} else if (productOpt==2 ) {
+					products pr = inputProduct();
+					Trial_MainClass.addProducts(productList, pr);
+				} else if (productOpt == 3) {
+					products pr = deleteProduct(productList);
+					
+				} else if (productOpt == 5) {
+					System.out.println("Goodbye!");
+				} else {
+					System.out.println("Option is not valid");
+			}
 			}
 			else if (option == 4) {
 				// Customer
@@ -242,7 +274,8 @@ public class Trial_MainClass {
 		System.out.println("1. VIEW ALL PROCEDURES");
 		System.out.println("2. ADD A PROCEDURE");
 		System.out.println("3. DELETE A PROCEDURE");
-		System.out.println("4. QUIT");
+		System.out.println("4. UPDATE PROCEDURE DATE");
+		System.out.println("5. QUIT");
 		Helper.line(80, "-");
 	}
 	
@@ -315,27 +348,49 @@ public class Trial_MainClass {
 		}
 
 		public static void addExchange(ArrayList<Exchange> exchangeList, Exchange ex) {
-
+			
+			String output = "";
 			exchangeList.add(ex);
 			System.out.println("Exchange added");
+			System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+			for (int i = 0; i < exchangeList.size(); i++) {
+				if (ex.getCustName().equalsIgnoreCase(exchangeList.get(i).getCustName())) {
+					output = "";
+					output += String.format("%-10d %-20s %-10s %-10.2f\n", exchangeList.get(i).getId(),
+							exchangeList.get(i).getCustName(), exchangeList.get(i).getStaffName()
+							, exchangeList.get(i).getPrice());
+					System.out.println(output);
+				}
+			}
 		}
 
 		public static Refund inputRefund() {
+			int returnPoints = 0;
 			int id = Helper.readInt("Enter ID > ");
 			String name = Helper.readString("Enter Name of customer > ");
 			String nameStaff = Helper.readString("Enter Name of staff > ");
 			double price = Helper.readDouble("Enter Price > ");
-			int returnPoints = 0;
 
-			Refund re = new Refund(id, name, nameStaff, price, 0);
+			Refund re = new Refund(id, name, nameStaff, price, returnPoints);
 			return re;
 
 		}
 
 		public static void addRefund(ArrayList<Refund> refundList, Refund re) {
-
+			
+			String output = "";
 			refundList.add(re);
 			System.out.println("Refund added");
+			System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+			for (int i = 0; i < refundList.size(); i++) {
+				if (re.getCustName().equalsIgnoreCase(refundList.get(i).getCustName())) {
+					output = "";
+					output += String.format("%-10d %-20s %-10s %-10.2f\n", refundList.get(i).getId(),
+							refundList.get(i).getCustName(), refundList.get(i).getStaffName()
+							, refundList.get(i).getPrice());
+					System.out.println(output);
+				}
+			}
 		}
 
 		// ================================= Option 3 Archive=================================
@@ -400,6 +455,8 @@ public class Trial_MainClass {
 		}
 		
 		public static void updateExchange(ArrayList<Exchange> exchangeList, int id) {
+			
+			String output = "";
 			String name = Helper.readString("Enter updated name > ");
 			String nameStaff = Helper.readString("Enter updated Staff name > ");
 			double price = Helper.readDouble("Enter updated price > ");
@@ -414,8 +471,19 @@ public class Trial_MainClass {
 			exchangeList.get(pos).setCustName(name);
 			exchangeList.get(pos).setStaffName(nameStaff);
 			exchangeList.get(pos).setPrice(price);
+		
 			
 			System.out.println("Exchange updated");
+			System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+			for (int i = 0; i < exchangeList.size(); i++) {
+				if (exchangeList.get(pos).getCustName().equalsIgnoreCase(exchangeList.get(i).getCustName())) {
+					output = "";
+					output += String.format("%-10d %-20s %-10s %-10.2f\n", exchangeList.get(i).getId(),
+							exchangeList.get(i).getCustName(), exchangeList.get(i).getStaffName()
+							, exchangeList.get(i).getPrice());
+					System.out.println(output);
+				}
+			}
 		}
 		
 		public static boolean checkRefundID(ArrayList<Refund> refundList, int id) {
@@ -428,6 +496,8 @@ public class Trial_MainClass {
 		}
 
 		public static void updateRefund(ArrayList<Refund> refundList, int id) {
+			
+			String output = "";
 			String name = Helper.readString("Enter updated name > ");
 			String nameStaff = Helper.readString("Enter updated Staff name > ");
 			double price = Helper.readDouble("Enter updated price > ");
@@ -444,6 +514,16 @@ public class Trial_MainClass {
 			refundList.get(pos).setPrice(price);
 			
 			System.out.println("Refund updated");
+			System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+			for (int i = 0; i < refundList.size(); i++) {
+				if (refundList.get(pos).getCustName().equalsIgnoreCase(refundList.get(i).getCustName())) {
+					output = "";
+					output += String.format("%-10d %-20s %-10s %-10.2f\n", refundList.get(i).getId(),
+							refundList.get(i).getCustName(), refundList.get(i).getStaffName()
+							, refundList.get(i).getPrice());
+					System.out.println(output);
+				}
+			}
 		}
 		
 		// !! END OF TRANSACTION METHODS !!
@@ -495,6 +575,68 @@ public class Trial_MainClass {
 					System.out.println("Procedure deleted!");
 				}
 			}
+		}
+		public static void updateDate(ArrayList<procedure_types> procedureList) {
+			String type = Helper.readString("Enter Procedure Type> ");
+			String newDate = Helper.readString("Enter new Date and Time (dd/MM/yy HH:mm:ss format)> " );
+			
+			Date date = new Date();
+			try{
+			  SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			  date = sdf.parse(newDate);
+			} catch(ParseException ex) {
+			  System.out.println("Incorrect Format");
+			}
+			
+			for(int i = 0; i < procedureList.size() ; i++) {
+				if(procedureList.get(i).getType().equalsIgnoreCase(type)) {
+					procedureList.get(i).setDateTime(date);
+					System.out.println("Date Updated!");
+				}
+			}
+		}
+		
+		// products
+		
+		
+		public static String retrieveAllProducts(ArrayList<products> productList ) {
+			String output = "";
+			for (int i = 0; i < productList.size(); i++) {
+				
+				output += String.format(" %d.%-20s(Add %-20s )%-20s \n", i+1, 
+						productList.get(i).getName(), productList.get(i).getDescription(), productList.get(i).getCategory());
+						}
+			return output;
+		}
+			
+		public static void viewAllProducts(ArrayList<products> productList) {
+			products_main.setHeader("PRODUCTS LIST");
+			String output = String.format("%20s \n", "PRODUCTS");
+			      output += retrieveAllProducts(productList);
+			System.out.println(output);
+		}
+		
+		public static products inputProduct() {
+			String name = Helper.readString("Enter product name > ");
+			String description = Helper.readString("Enter a description of the product > ");
+			String category = Helper.readString("Enter the category of the product > " );
+			return null;
+		}
+		
+		public static void addProducts(ArrayList<products> productList, products pr) {
+			productList.add(pr);
+			System.out.println("The product has been added.");
+			
+		}
+		
+		public static products deleteProduct(ArrayList<products> productList) {
+			String name = Helper.readString("Enter the product to be deleted > ");
+			for(int i = 0; i < productList.size(); i++) {
+				if (productList.get(i).getName().equalsIgnoreCase(name)) {
+					productList.remove(i);
+				}
+			}
+			return null;
 		}
 
 			// !! END OF PROCEDURE METHODS !!
@@ -582,7 +724,6 @@ public class Trial_MainClass {
 				
 				returnsList.add(returns);
 				System.out.println("Returns added!");
+	
 			}
-	}
-
-		
+		}
