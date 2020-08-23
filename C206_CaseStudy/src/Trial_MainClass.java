@@ -262,9 +262,10 @@ public class Trial_MainClass {
 			String output = "";
 			exchangeList.add(ex);
 			System.out.println("Exchange added");
+			System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
 			for (int i = 0; i < exchangeList.size(); i++) {
 				if (ex.getCustName().equalsIgnoreCase(exchangeList.get(i).getCustName())) {
-					System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+					output = "";
 					output += String.format("%-10d %-20s %-10s %-10.2f\n", exchangeList.get(i).getId(),
 							exchangeList.get(i).getCustName(), exchangeList.get(i).getStaffName()
 							, exchangeList.get(i).getPrice());
@@ -290,9 +291,10 @@ public class Trial_MainClass {
 			String output = "";
 			refundList.add(re);
 			System.out.println("Refund added");
+			System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
 			for (int i = 0; i < refundList.size(); i++) {
 				if (re.getCustName().equalsIgnoreCase(refundList.get(i).getCustName())) {
-					System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+					output = "";
 					output += String.format("%-10d %-20s %-10s %-10.2f\n", refundList.get(i).getId(),
 							refundList.get(i).getCustName(), refundList.get(i).getStaffName()
 							, refundList.get(i).getPrice());
@@ -363,6 +365,8 @@ public class Trial_MainClass {
 		}
 		
 		public static void updateExchange(ArrayList<Exchange> exchangeList, int id) {
+			
+			String output = "";
 			String name = Helper.readString("Enter updated name > ");
 			String nameStaff = Helper.readString("Enter updated Staff name > ");
 			double price = Helper.readDouble("Enter updated price > ");
@@ -377,8 +381,19 @@ public class Trial_MainClass {
 			exchangeList.get(pos).setCustName(name);
 			exchangeList.get(pos).setStaffName(nameStaff);
 			exchangeList.get(pos).setPrice(price);
+		
 			
 			System.out.println("Exchange updated");
+			System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+			for (int i = 0; i < exchangeList.size(); i++) {
+				if (exchangeList.get(pos).getCustName().equalsIgnoreCase(exchangeList.get(i).getCustName())) {
+					output = "";
+					output += String.format("%-10d %-20s %-10s %-10.2f\n", exchangeList.get(i).getId(),
+							exchangeList.get(i).getCustName(), exchangeList.get(i).getStaffName()
+							, exchangeList.get(i).getPrice());
+					System.out.println(output);
+				}
+			}
 		}
 		
 		public static boolean checkRefundID(ArrayList<Refund> refundList, int id) {
@@ -391,6 +406,8 @@ public class Trial_MainClass {
 		}
 
 		public static void updateRefund(ArrayList<Refund> refundList, int id) {
+			
+			String output = "";
 			String name = Helper.readString("Enter updated name > ");
 			String nameStaff = Helper.readString("Enter updated Staff name > ");
 			double price = Helper.readDouble("Enter updated price > ");
@@ -407,6 +424,16 @@ public class Trial_MainClass {
 			refundList.get(pos).setPrice(price);
 			
 			System.out.println("Refund updated");
+			System.out.println(String.format("%-10s %-20s %-10s %-10s\n", "ID", "CUSTOMER NAME", "STAFF NAME", "PRICE"));
+			for (int i = 0; i < refundList.size(); i++) {
+				if (refundList.get(pos).getCustName().equalsIgnoreCase(refundList.get(i).getCustName())) {
+					output = "";
+					output += String.format("%-10d %-20s %-10s %-10.2f\n", refundList.get(i).getId(),
+							refundList.get(i).getCustName(), refundList.get(i).getStaffName()
+							, refundList.get(i).getPrice());
+					System.out.println(output);
+				}
+			}
 		}
 		
 		// !! END OF TRANSACTION METHODS !!
