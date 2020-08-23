@@ -30,7 +30,7 @@ public class Procedure_Main {
 			} else if (option == 3) {
 				Procedure_Main.deleteProcedure(procedureList);
 			} else if (option == 4) {
-				//Update Date Time
+				Procedure_Main.updateDate(procedureList);
 			} else if (option == 5) {
 				System.out.println("Bye!");
 			} else {
@@ -45,7 +45,8 @@ public class Procedure_Main {
 		System.out.println("1. VIEW ALL PROCEDURES");
 		System.out.println("2. ADD A PROCEDURE");
 		System.out.println("3. DELETE A PROCEDURE");
-		System.out.println("4. QUIT");
+		System.out.println("4. UPDATE PROCEDURE DATE");
+		System.out.println("5. QUIT");
 		Helper.line(80, "-");
 	}
 
@@ -104,12 +105,19 @@ public class Procedure_Main {
 		String type = Helper.readString("Enter Procedure Type> ");
 		String newDate = Helper.readString("Enter new Date and Time (dd/MM/yy HH:mm:ss format)> " );
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		try {
-			Date date = sdf.parse(newDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Date date = new Date();
+		try{
+		  SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		  date = sdf.parse(newDate);
+		} catch(ParseException ex) {
+		  System.out.println("Incorrect Format");
+		}
+		
+		for(int i = 0; i < procedureList.size() ; i++) {
+			if(procedureList.get(i).getType().equalsIgnoreCase(type)) {
+				procedureList.get(i).setDateTime(date);
+				System.out.println("Date Updated!");
+			}
 		}
 	}
 }
